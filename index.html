@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demo</title>
+  </head>
+  <body>
+
+    <div id="app"></div>
+    <div id="app2"></div>
+
+
+    <script src="dist/glcvis.min.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script>
+
+      var chart
+      var chart2
+
+      d3.csv('data/winequality-red.csv').then(function(dataset){
+    
+      console.log(dataset.length)
+      console.log(glc)
+
+        chart = glc.newChart({
+          data: dataset.slice(0, 10),
+          width: screen.width,
+          height: screen.height/2, 
+          selector: "#app", 
+          type: "radial", 
+          dimensions: ["fixed acidity","volatile acidity","citric acid","residual sugar","chlorides","free sulfur dioxide","total sulfur dioxide","density","pH","sulphates","alcohol"],
+          //dimensions: ["d1","d2","d3","d4","d5","d6"],
+          //dimensions: ["sepal_length","sepal_width","petal_length","petal_width"], 
+          //dimensions: ["c1","c2","c3","c4","c5","c6","c7","c8","c9","c10"],
+          //dimensions: ["economy","displacement","power","weight","mph","year"],
+          //dimensions: ["MFCCs_ 1","MFCCs_ 2","MFCCs_ 3","MFCCs_ 4","MFCCs_ 5"],//"MFCCs_ 6","MFCCs_ 7","MFCCs_ 8","MFCCs_ 9","MFCCs_10","MFCCs_11","MFCCs_12","MFCCs_13","MFCCs_14","MFCCs_15","MFCCs_16","MFCCs_17","MFCCs_18","MFCCs_19","MFCCs_20","MFCCs_21","MFCCs_22"],
+          target: "quality",
+          //target: "cylinders",
+          //target: "class", 
+          //target: "c11",
+          //target: "Family", //Family,Genus,Species,
+          dynamic: false
+      
+        })
+        
+        chart.draw()
+        //chart.setOpacity(1)
+        chart.colorize(true)
+
+        console.log(chart.getFiltered())
+
+        
+        chart2 = glc.newChart({
+          data: dataset.slice(0, 10),
+          width: screen.width,
+          height: screen.height/2, 
+          selector: "#app2", 
+          type: "spc", 
+          //dimensions: ["d1","d2","d3","d4","d5","d6"],
+          //target: "class", 
+          //dimensions: ["economy","displacement","power","weight","mph","year"],
+          //target: "cylinders",
+          dimensions: ["fixed acidity","volatile acidity","citric acid","residual sugar","chlorides","free sulfur dioxide","total sulfur dioxide","density","pH","sulphates","alcohol"],
+          target: "quality",
+          dynamic: false
+      
+        })
+        
+        chart2.draw()
+        chart2.colorize(true)
+        
+        chart.setDualView(chart2)
+
+      })
+      
+    </script>
+  </body>
+</html>
