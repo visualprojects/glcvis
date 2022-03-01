@@ -1,15 +1,15 @@
-# GLCVis: General Line Coordinates Visualization
+# GLC-Vis: General Line Coordinates Visualization
 
 <a><img src="static/favicon.png" align="left" hspace="6" vspace="6"></a>
 
-**GLCVis** (or **GLCVis.js**) is a JavaScript library for visualizing data using General Lines Coordinates (or GLC) developmented by <a href="http://www.cwu.edu/~borisk/">Boris Kovalerchuk</a>. GLCVis helps you bring data to life using SVG and HTML. GLCVis combines new multi-dimensional visualization techniques and interaction techniques for a effective data exploration, giving you the full capabilities of modern browsers. GLCVis is based on D3js.
+**GLC-Vis** (or **GLCV-is.js**) is a JavaScript library for visualizing data using General Lines Coordinates (or GLC) developmented by <a href="http://www.cwu.edu/~borisk/">Boris Kovalerchuk</a>. GLCVis helps you bring data to life using SVG and HTML. GLCVis combines new multi-dimensional visualization techniques and interaction techniques for a effective data exploration, giving you the full capabilities of modern browsers. GLCVis is based on D3js.
 
 
 
    
 ## Installing
 
- Download the [latest release](https://github.com/LeandroLuque/GLCvis/tree/master/dist). The released bundle supports anonymous AMD, CommonJS, and vanilla environments.For example:
+ Download the [latest release](https://github.com/visualprojects/glcvis/tree/master/dist). The released bundle supports anonymous AMD, CommonJS, and vanilla environments.For example:
 
 ```html
 <script src="glcvis.js"></script>
