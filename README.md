@@ -96,7 +96,7 @@ Returns collection of items. Collection is a D3 selection.
 
 ### Radial
 
-[<img src="static/radial.png" width="400" height="295">]()
+[<img src="static/radial.png" width="400" height="400">]()
 
 
 ```js
@@ -154,10 +154,10 @@ chart.setOrientations(value)
 
 ### Bush
 
-[<img src="static/bush.png" width="400" height="295">]()
+[<img src="static/bush.png" width="600" height="295">]()
 
 ### Non-Sequential Generic
-[<img src="static/nseq-generic.png" width="500" height="295">]()
+[<img src="static/nseq-generic.png" width="600" height="295">]()
 
 ```js
 chart.setOrientations(<value>)
