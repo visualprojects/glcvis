@@ -33,6 +33,12 @@ For the minified version:
 * [Bush](#bush)
 * [Non-Sequential Generic](#symbols)
 * [Parallel Coordinates](#custom-symbol-types)
+* [Collocated Paired Coordianates](#cpc)
+* [Shifted Paired Coordianates](#spc)
+* [Anchored Paired Coordianates](#apc)
+* [Paired Radial Coordianates](#prc)
+* [Ellipse Paired Coordianates](#epc)
+* [Paired Crown Coordianates](#pwc)
 * [Interacions](#interactions)
 
 
@@ -90,7 +96,7 @@ Returns collection of items. Collection is a D3 selection.
 
 ### Radial
 
-[<img src="static/radial.png" width="400" height="295">](http://bl.ocks.org/mbostock/8878e7fd82034f1d63cf)
+[<img src="static/radial.png" width="400" height="295">]()
 
 
 ```js
@@ -105,7 +111,7 @@ When *value* is specified, the items are drawn with curves or straight lines. *v
 
 ### Inline
 
-[<img src="static/inline.png" width="800" height="295">](http://bl.ocks.org/mbostock/8878e7fd82034f1d63cf)
+[<img src="static/inline.png" width="800" height="295">]()
 
 ```js
 chart.compareClasses(class1, class2)
@@ -124,7 +130,7 @@ When *value* is specified, the items are drawn with curves or straight lines. *v
 
 ### Circular
 
-[<img alt="Pie Chart" src="static/circular.png" width="400" height="295">](http://bl.ocks.org/mbostock/8878e7fd82034f1d63cf)
+[<img alt="Pie Chart" src="static/circular.png" width="400" height="295">]()
 
 ```js
 chart.setRadius(value)
@@ -133,7 +139,7 @@ When *value* is specified, the axis are located that distance ralative of the or
 
 
 ### Sequential Generic
-[<img src="static/seq-generic.png" width="400" height="295">](http://bl.ocks.org/mbostock/8878e7fd82034f1d63cf)
+[<img src="static/seq-generic.png" width="400" height="295">]()
 
 
 ```js
@@ -143,23 +149,48 @@ chart.setOrientations(value)
 
 ### Polygon
 
-[<img src="static/polygon.png" width="400" height="295">](http://bl.ocks.org/mbostock/8878e7fd82034f1d63cf)
+[<img src="static/polygon.png" width="400" height="295">]()
 
 
 ### Bush
 
-[<img src="static/bush.png" width="400" height="295">](http://bl.ocks.org/mbostock/8878e7fd82034f1d63cf)
+[<img src="static/bush.png" width="400" height="295">]()
 
 ### Non-Sequential Generic
-[<img src="static/nseq-generic.png" width="500" height="295">](http://bl.ocks.org/mbostock/8878e7fd82034f1d63cf)
+[<img src="static/nseq-generic.png" width="500" height="295">]()
 
 ```js
-chart.setOrientations(<[value]>)
+chart.setOrientations(<value>)
 ```
 *value* is an array of integers between [0, 360] and its length must be match with the lenght of *dimensions*. When *value* is specified, the orientation of each axis is set according to the *value*<sub>i</sub>. Otherwise, the orientations are calculated randomly. 
 
 ### Parallel Coordinates
-[<img src="static/parallel.png" width="600" height="295">](http://bl.ocks.org/mbostock/8878e7fd82034f1d63cf)
+[<img src="static/parallel.png" width="600" height="295">]()
+
+
+### Collocated Paired Coordinates
+[<img src="static/cpc.png" width="600" height="295">]()
+
+### Shifted Paired Coordinates
+[<img src="static/spc.png" width="600" height="295">]()
+
+### Anchored Paired Coordinates
+[<img src="static/apc.png" width="600" height="295">]()
+
+```js
+chart.setAnchor(<value>)
+```
+*value* is an 2D array to define the position of anchor ([x,y]).
+
+### Paired Radial Coordinates
+[<img src="static/prc.png" width="600" height="295">]()
+
+### Ellipse Paired Coordinates
+[<img src="static/epc.png" width="600" height="295">]()
+
+### Paired Crown Coordinates
+[<img src="static/pwc.png" width="300" height="300">]()
+
 
 ### Interactions
 
@@ -171,5 +202,6 @@ The library provide 3 basic interactions to manipulate the chart:
 
 ## Example
 
+We provide a functional web app using some capacilities of our library at [visualprojects.github.io](https://visualprojects.github.io). Also, we provide a minimal example (index.html) to run locally.
 
 
