@@ -39,6 +39,7 @@ export const newChart = (params) => {
         case 'parallel':
             let chart2 = new NonSequentialGeneric(params)
             chart2.setOrientations(params.dimensions.map(l => 90))
+            chart2.setPCP(true)
             return chart2
         case 'cpc':
             return new CPC(params)

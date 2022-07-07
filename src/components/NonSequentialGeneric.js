@@ -12,13 +12,14 @@ export default class NonSequentialGeneric extends Chart {
     constructor(params) {
         super(params)
         this.orientations = range(this.dimensions.length).map(l => Math.random()* 360);
+        this.pcp = false //hack para no pasar todo
     }
 
     draw(){
     
-        const segment = this.width / this.dimensions.length,
-            middle_segment = segment/2,
-            brushHeight = 30
+        const segment = this.width/this.dimensions.length,
+            middle_segment = this.pcp?(this.height-30)/2:segment/2,
+            brushHeight = 20
         
         var ysegments = {}
         keys(this.data[0]).filter((d,i) => {
@@ -32,7 +33,7 @@ export default class NonSequentialGeneric extends Chart {
         keys(this.data[0]).filter((d,i) => {
             return d != this.target && (ydomain[d] = scaleLinear()
             .domain(extent(this.data, function(p) { return +p[d]; }))
-            .range([0, segment]))
+            .range([0, this.pcp?(this.height-30):segment]))
             
         })
     
@@ -41,7 +42,7 @@ export default class NonSequentialGeneric extends Chart {
             .append("text")
             .text(d => d)
             .attr("x", (d,i) => i*segment + middle_segment)
-            .attr("y", 30)
+            .attr("y", 10)
             .attr("text-anchor", "middle")
             .style("font-size", 12)
     
@@ -108,15 +109,15 @@ export default class NonSequentialGeneric extends Chart {
             .attr("stroke", d => this.colorScale(d[this.target]))
             .attr("fill", "none")
             .attr("stroke-width", 1)
-            .attr("stroke-opacity", 1)    
+            .attr("stroke-opacity", 1)
             
         
         this.axis = this.svg.append("g")
             .selectAll("g")
             .data(this.dimensions)
             .join("g")
-            .attr("transform", (d,i) => `translate(${(i*segment)+middle_segment},${this.height/2}) rotate(${-this.orientations[i]})`)
-            .each(function(d) {select(this).call(axisBottom(ysegments[d]).ticks([]).tickSize(0))})
+            .attr("transform", (d, i) => `translate(${(i*segment)+middle_segment},${this.height/2}) rotate(${-this.orientations[i]})`)
+            .each(function(d) {select(this).call(axisBottom(ysegments[d]).ticks([]).tickSize(0).offset(0))})
             .call(brush)
     
         this.svg.selectAll(".domain")
@@ -128,5 +129,9 @@ export default class NonSequentialGeneric extends Chart {
 
     setOrientations(value){
         this.orientations = value
+    }
+
+    setPCP(value){
+        this.pcp = value
     }
 };

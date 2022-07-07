@@ -21,7 +21,7 @@ export default class SequentialGeneric extends Chart {
     
         const segment = this.width / this.dimensions.length,
             middle_segment = segment/2,
-            brushHeight = 30
+            brushHeight = 20
           
         var ysegments = {}
         keys(this.data[0]).filter((d,i) => {
@@ -67,7 +67,7 @@ export default class SequentialGeneric extends Chart {
             .data(this.dimensions)
             .join("g")
             .attr("transform", locate_axis)
-            .each(function(d) { select(this).call(axisBottom(ysegments[d]).ticks([]).tickSize(0))})
+            .each(function(d) { select(this).call(axisBottom(ysegments[d]).ticks([]).tickSize(0).offset(0))})
             .call(brush)
             .call(g => g.append("text")
             .attr("x", middle_segment)

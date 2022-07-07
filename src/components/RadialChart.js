@@ -79,18 +79,18 @@ export default class RadialChart extends Chart {
             .attr("stroke-opacity", 1)    
             
     
-        const selections = new Map();
+        //const selections = new Map();
 
         this.axis = this.svg.append("g")
             .selectAll(".axis")
             .data(this.dimensions)
             .join("g")
             .attr("transform", (d,i) => `translate(${this.width/2},${this.height/2}) rotate(${orientations[i]})`)
-            .each(function(d) { select(this).call(axisBottom(ydomain[d]).ticks([]).tickSize(0))})
+            .each(function(d) { select(this).call(axisBottom(ydomain[d]).ticks([]).tickSize(0).offset(0))})
             .call(brush)
             .call(g => g.append("text")
-            .attr("x", middle_segment)
-            .attr("y", -6)
+            .attr("x", segment*5.5)
+            .attr("y", 0)
             .attr("text-anchor", "start")
             .attr("fill", "currentColor")
             .text(d => d))
