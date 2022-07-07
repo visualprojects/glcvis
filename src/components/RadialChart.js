@@ -89,7 +89,7 @@ export default class RadialChart extends Chart {
             .each(function(d) { select(this).call(axisBottom(ydomain[d]).ticks([]).tickSize(0).offset(0))})
             .call(brush)
             .call(g => g.append("text")
-            .attr("x", segment*5.5)
+            .attr("x", this.radius+10)
             .attr("y", 0)
             .attr("text-anchor", "start")
             .attr("fill", "currentColor")
