@@ -4,7 +4,7 @@
   "description": "A minimal library for Big Data using GLC",
   "main": "dist/glcvis.min.js",
   "scripts": {
-    "build": "webpack"
+    "build": "NODE_OPTIONS=--openssl-legacy-provider webpack"
   },
   "repository": {
     "type": "git",

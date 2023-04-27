@@ -4,9 +4,20 @@ import { line } from 'd3-shape'
 import { schemeTableau10 } from 'd3-scale-chromatic'
 import { scaleOrdinal } from 'd3-scale';
 import { drag } from 'd3-drag';
+import { peng } from '../methods/peng_pc'
+import { artero } from '../methods/artero'
+import { luCon } from '../methods/luCon';
+import { luSim } from '../methods/luSim';
+import { makwana } from '../methods/makwana';
+import { sim_global } from '../methods/sim_global';
+import { dissim_global } from '../methods/dissimilarity_global';
+import { maxVAr_global } from '../methods/maxVar_global';
+import { minVAr_global } from '../methods/minVar_global';
+import { artero_dis } from '../methods/artero_dis';
+import { getNomArr, deepCopy, getSimMat } from '../basics/auxiliary'
 
 export default class Chart {
-    constructor({data, width, height, selector, type, dimensions, target, dynamic}) {
+    constructor({data, width, height, selector, type, dimensions, target, dynamic, ordering="0"}) {
 
         this.data = data;
         this.width = width;
@@ -17,8 +28,104 @@ export default class Chart {
         this.target = target;
         this.dynamic = dynamic;
 
-        console.log(this.dimensions.length)
+        console.log(this.dimensions)
 
+        /*el hack para reusar los algoritmos. consiste en pasar los datos al formato de ellos*/
+        let newarr = this.data.map((obj, i) => {
+            return [i].concat(this.dimensions.map(d => obj[d]));
+        });
+        newarr.unshift(["id"].concat(this.dimensions))
+
+        var dataArray = [[]];
+        var hasNullValue = [];
+
+        //construct the data array
+        for (var i = 0; i < newarr.length; i++) {
+            var row = newarr[i];
+            dataArray[i] = row;
+            var cells = row.join(",").split(",");
+            for (var j = 0; j < cells.length; j++) {
+                dataArray[i][j] = cells[j];
+            }
+        }
+
+
+        // delete rows with null value(s)
+        for (var a = 1; a < dataArray.length; a++) {
+            for (var b = 0; b < dataArray[0].length; b++) {
+                if (dataArray[a][b] === "") {
+                    hasNullValue.push(a);
+                    break;
+                }
+            }
+        }
+        var deleted = 0;
+        for (var index = 0; index < hasNullValue.length; index++) {
+            dataArray.splice(hasNullValue[index] - deleted, 1);
+            deleted++;
+        }
+        
+        var nomArr = getNomArr(dataArray);
+
+        switch (ordering) {
+            //Default ordering
+            case "0":
+                break;
+            //Clutter-based Methods
+            case "1":
+                this.dimensions = peng(nomArr).map(i => this.dimensions[i])
+                break;
+            //Contribution-based Methods
+            case "2":
+                this.dimensions = luCon(dataArray).map(i => this.dimensions[i])
+                break;
+            //Similarity-based Methods by Artero et al.
+            case "3":
+                var simMat = deepCopy(getSimMat(nomArr));
+                this.dimensions = artero(simMat).map(i => this.dimensions[i])
+                break;
+            //Similarity-based Methods by Lu et al.
+            case "4":
+                this.dimensions = luSim(dataArray).map(i => this.dimensions[i])
+                break;
+            //Pattern Optimization Method
+            case "5":
+                this.dimensions = makwana(nomArr).map(i => this.dimensions[i])
+                break;
+            //Similarity-Global
+            case "6":
+                var simMat2 = deepCopy(getSimMat(dataArray));
+                this.dimensions = sim_global(dataArray, simMat2).map(i => this.dimensions[i])
+                break;
+            //Dissimilarity-Global
+            case "7":
+                var simMat3 = deepCopy(getSimMat(dataArray));
+                this.dimensions = dissim_global(dataArray, simMat3).map(i => this.dimensions[i])
+                break;
+            //Maximizing Variance of Neighboring Dimensions
+            case "8":
+                var simMat4 = deepCopy(getSimMat(dataArray));
+                this.dimensions = maxVAr_global(dataArray, simMat4).map(i => this.dimensions[i])
+                break;
+            //Similarity-based Method(Min Variance)
+            case "9":
+                var simMat5 = deepCopy(getSimMat(dataArray));
+                this.dimensions = minVAr_global(dataArray, simMat5).map(i => this.dimensions[i])  
+                break;
+            //Disimilarity-based Method based on Artero et al.
+            case "10":
+                var simMat6 = deepCopy(getSimMat(dataArray, "12"));
+                this.dimensions =  artero_dis(simMat6).map(i => this.dimensions[i]) 
+                break;
+            default:
+                alert("Sorry, something is wrong.");
+
+        }
+
+        console.log("dim after reordering", this.dimensions)
+        
+        //////////////////////////////////////////////////////////////
+        
         if (this.dimensions.length%2!=0 && ["cpc","spc","apc","epc","prc","pwc"].includes(this.type)){
             let last_dim = this.dimensions.slice(-1)
             this.data.map(l => l[`${last_dim}_2`]=l[last_dim])
