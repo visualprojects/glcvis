@@ -17,7 +17,7 @@ import { artero_dis } from '../methods/artero_dis';
 import { getNomArr, deepCopy, getSimMat } from '../basics/auxiliary'
 
 export default class Chart {
-    constructor({data, width, height, selector, type, dimensions, target, dynamic, ordering="0"}) {
+    constructor({data, width, height, selector, type, dimensions, target, dynamic, number=0, ordering="0"}) {
 
         this.data = data;
         this.width = width;
@@ -27,6 +27,7 @@ export default class Chart {
         this.dimensions = dimensions;
         this.target = target;
         this.dynamic = dynamic;
+        this.number = number
 
         console.log(this.dimensions)
 
@@ -159,6 +160,7 @@ export default class Chart {
             arrowPoints = [[0, 0], [0, 10], [10, 5]];
 
         this.svg = select(this.selector).append("svg")
+            .attr("id", `svg${this.number}`)
             .attr("width", this.width + margin.left + margin.right)
             .attr("height", this.height + margin.top + margin.bottom)
             .call(zoom().on("start zoom end", event => {
